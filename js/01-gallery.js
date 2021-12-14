@@ -4,10 +4,20 @@ import { galleryItems } from './gallery-items.js';
 console.log(galleryItems);
 
 
-const  gallery = document.querySelector('gallery');
-const listNew = galleryItems
- .map(galleryItems => `<li class="gallery__item">
-                     <img class="gallery__img" src="${galleryItems.preview}" alt="${galleryItems.description}" width="630" height="375">
-                 </li>`);
-//gallery.addEventListener('click' );
-//gallery.insertAdjacentHTML("afterbegin", listNew)
+const  gallery = document.querySelector('.gallery');
+
+
+// Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи./
+const listNew = galleryItems.map(({ original, preview, description }) => 
+     `<div class="gallery__item">
+     <a class="gallery__link" href="large-image.jpg">
+       <img
+         class="gallery__image"
+         src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+       />
+     </a>
+   </div>`).join("");;
+
+gallery.insertAdjacentHTML("afterbegin", listNew);
