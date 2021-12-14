@@ -7,7 +7,7 @@ console.log(galleryItems);
 const  gallery = document.querySelector('.gallery');
 
 
-// Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи./
+// 1.Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи./
 const listNew = galleryItems.map(({ original, preview, description }) => 
      `<div class="gallery__item">
      <a class="gallery__link" href="large-image.jpg">
@@ -21,3 +21,13 @@ const listNew = galleryItems.map(({ original, preview, description }) =>
    </div>`).join("");;
 
 gallery.insertAdjacentHTML("afterbegin", listNew);
+
+// 2.Реализация делегирования на div.gallery и получение url большого изображения.
+
+gallery.addEventListener('click', onClick);
+
+function onClick(evt) {
+    if(evt.target.nodeName !== 'IMG'){
+        return;
+    }
+}
