@@ -27,6 +27,8 @@ gallery.insertAdjacentHTML("afterbegin", listNew);
 gallery.addEventListener('click', onClick);
 
 function onClick(evt) {
+    evt.preventDefault();
+    
     if(evt.target.nodeName !== 'IMG'){
         return;
     }
