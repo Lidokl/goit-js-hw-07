@@ -5,7 +5,7 @@ console.log(galleryItems);
 
 
 const  gallery = document.querySelector('.gallery');
-const bodyEl = document.querySelector('body');
+
 let instance = {};
 
 
