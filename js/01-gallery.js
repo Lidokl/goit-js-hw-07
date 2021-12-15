@@ -5,6 +5,8 @@ console.log(galleryItems);
 
 
 const  gallery = document.querySelector('.gallery');
+const bodyEl = document.querySelector('body');
+let instance = {};
 
 
 // 1.Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи./
@@ -20,11 +22,10 @@ const listNew = galleryItems.map(({ original, preview, description }) =>
      </a>
    </div>`).join("");;
 
-gallery.insertAdjacentHTML("afterbegin", listNew);
+gallery.insertAdjacentHTML("beforeend", listNew);
 
 // 2.Реализация делегирования на div.gallery и получение url большого изображения.
 
-gallery.addEventListener('click', onClick);
 
 function onClick(evt) {
     evt.preventDefault();
@@ -32,4 +33,30 @@ function onClick(evt) {
     if(evt.target.nodeName !== 'IMG'){
         return;
     }
+    openModalWindow(evt.target.dataset.source);
 }
+
+gallery.addEventListener('click', onClick);
+
+// 3.
+function onCreateModal(pic) {
+  return basicLightbox.create(`
+    <img src="${pic}" width="800" height="600">
+`);
+}
+
+// 4
+function openModalWindow(pic) {
+  instance = onCreateModal(pic);
+  instance.show();
+  document.addEventListener("keyup", pressEscapeInModal);
+}
+
+
+  function pressEscapeInModal(evt) {
+    if (evt.code !== "Escape") {
+      return;
+    }
+    instance.close();
+    document.removeEventListener("keyup", pressEscapeInModal);
+  }
